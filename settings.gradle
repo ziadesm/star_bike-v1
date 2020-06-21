@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "star_bike-v1"
