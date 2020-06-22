@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="echomachine.com.flickrapi_v1.ui.profile.LoginFragment">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_layout_main_text_login"
+            android:textSize="50sp"
+            android:layout_gravity="center|top"
+            android:fontFamily="@font/indigo_daisy"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_layout_tag"
+            android:textSize="17sp"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/login_layout_et_email_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_email_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/roboto_regular"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/login_layout_et_password_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_password_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textPassword"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/login_layout_btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_background_dark"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:text="@string/login_layout_button_login"/>
+
+        <TextView
+            android:id="@+id/login_layout_tv_click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/indigo_daisy"
+            android:gravity="center"
+            android:text="@string/login_layout_register_navigate"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp" />
+    </LinearLayout>
+</ScrollView>

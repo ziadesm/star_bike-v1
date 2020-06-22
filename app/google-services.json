@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "968958249818",
+    "firebase_url": "https://star-bike-v1.firebaseio.com",
+    "project_id": "star-bike-v1",
+    "storage_bucket": "star-bike-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968958249818:android:b0b0877dfad7965604c163",
+        "android_client_info": {
+          "package_name": "echomachine.com.star_bike_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968958249818-r4l9rhdv9hs6adidn4agp5opho665vt3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAclmHE5AxhqieAokR_aTmrdS5PagbAFoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968958249818-r4l9rhdv9hs6adidn4agp5opho665vt3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

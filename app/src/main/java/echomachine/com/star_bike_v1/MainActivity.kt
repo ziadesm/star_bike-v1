@@ -1,5 +1,7 @@
 package echomachine.com.star_bike_v1
 
+import android.app.Activity
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View

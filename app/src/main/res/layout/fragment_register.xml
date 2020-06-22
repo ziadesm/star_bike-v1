@@ -1,14 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<ScrollView
     android:layout_height="match_parent"
-    tools:context=".ui.register.RegisterFragment">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="echomachine.com.star_bike_v1.ui.register.RegisterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/indigo_daisy"
+            android:layout_gravity="top|center"
+            android:text="@string/register_layout_main_text_register"
+            android:textAlignment="center"
+            android:textSize="50sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_layout_tag"
+            android:textSize="17sp"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/register_layout_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_your_name_et"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:inputType="textPersonName"
+            android:fontFamily="@font/roboto_regular"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/register_layout_et_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_email_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/register_layout_et_location"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_location_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/register_layout_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_password_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textPassword"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/register_layout_et_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_phone_number_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="phone"
+            android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/register_layout_btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/custom_button_background_dark"
+            android:fontFamily="@font/roboto_regular"
+            android:textAllCaps="false"
+            android:text="@string/register_layout_button_register"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/register_layout_tv_click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/indigo_daisy"
+            android:gravity="center"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="@string/register_layout_login_navigate"
+            android:textSize="18sp" />
+
+        </LinearLayout>
+</ScrollView>

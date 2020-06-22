@@ -1,6 +1,29 @@
 <resources>
-    <string name="app_name">star_bike-v1</string>
+    <string name="app_name">StarBike</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Splash layout -->
     <string name="logo_splash_screen">Logo screen</string>
+    <string name="error_dialog_button_text">Okey!</string>
+    <string name="error_dialog_text">Check your connection</string>
+
+    <!-- Register layout -->
+    <string name="register_layout_main_text_register">Register</string>
+    <string name="register_layout_tag">Join our StarBike community and share \nyour goals with others</string>
+    <string name="register_layout_your_name_et">Your name</string>
+    <string name="register_layout_email_hint">E-mail</string>
+    <string name="register_layout_password_hint">Password</string>
+    <string name="register_layout_phone_number_hint">Phone number</string>
+    <string name="register_layout_button_register">Register</string>
+    <string name="register_layout_login_navigate">Have an account? Sign in</string>
+
+    <!-- Login layout -->
+    <string name="login_layout_main_text_login">Login</string>
+    <string name="login_layout_tag">We are waiting for you \nYour teammate is looking for you</string>
+    <string name="login_layout_button_login">Login</string>
+    <string name="login_layout_register_navigate">Create new account? Sign up</string>
+    <string name="register_layout_location_hint">Your location</string>
+
+
 </resources>
