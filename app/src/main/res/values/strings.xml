@@ -23,7 +23,9 @@
     <string name="login_layout_tag">We are waiting for you \nYour teammate is looking for you</string>
     <string name="login_layout_button_login">Login</string>
     <string name="login_layout_register_navigate">Create new account? Sign up</string>
-    <string name="register_layout_location_hint">Your location</string>
+    <string name="register_layout_location_hint">We need access to location, to save ONLY</string>
+    <string name="ok">Ok</string>
+    <string name="permission_rationale">Permissin Access</string>
 
 
 </resources>

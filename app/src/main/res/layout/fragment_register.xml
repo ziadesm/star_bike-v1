@@ -63,21 +63,6 @@
             android:autofillHints="" />
 
         <EditText
-            android:id="@+id/register_layout_et_location"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="@string/register_layout_location_hint"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:padding="15dp"
-            android:fontFamily="@font/roboto_regular"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/register_background_et"
-            android:textSize="15sp"
-            android:autofillHints="" />
-
-        <EditText
             android:id="@+id/register_layout_et_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -103,6 +88,20 @@
             android:fontFamily="@font/roboto_regular"
             android:inputType="phone"
             android:background="@drawable/register_background_et"
+            android:textSize="15sp"
+            android:autofillHints="" />
+
+        <TextView
+            android:id="@+id/register_layout_et_location"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/register_layout_location_hint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:background="@android:color/transparent"
             android:textSize="15sp"
             android:autofillHints="" />
 
