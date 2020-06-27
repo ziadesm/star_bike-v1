@@ -1,9 +1,7 @@
 package echomachine.com.star_bike_v1.ui.register
 import android.Manifest
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.location.Location
@@ -22,12 +20,11 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.PendingResult
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import echomachine.com.star_bike_v1.Constants
 import echomachine.com.star_bike_v1.R
+import echomachine.com.star_bike_v1.helpers.DataWorkerHelper
 import echomachine.com.star_bike_v1.helpers.GpsUtils
 import echomachine.com.star_bike_v1.helpers.NavigationsHelper
 import echomachine.com.star_bike_v1.helpers.NetworkCheckHelper
@@ -39,8 +36,6 @@ import kotlin.properties.Delegates
 
 class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
 
-    private val LOCATION_ACCESS_PERMISSION_REQUEST = 34
-    private val TAG = "ZiadReceiver"
     private lateinit var auth: FirebaseAuth
     private lateinit var locationTv: TextView
     private lateinit var receiver: AddressRequestReceiver
@@ -53,14 +48,14 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
         receiver.setDataLocation(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
         isCurrentLocationPermissionGranted()
         view.register_layout_btn_register.setOnClickListener { registerTheUser() }
+        view.register_layout_tv_click.setOnClickListener { NavigationsHelper
+            .navigateToThisDestination(R.id.login_fragment, requireActivity()) }
+
         locationTv = view.findViewById(R.id.register_layout_et_location)
         return view
     }
@@ -69,10 +64,10 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.error_dialog_design)
         dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         if (locationTv.text.isEmpty()) {
             getCurrentLocation()
         }
-        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         if (context?.let { !NetworkCheckHelper.isOnline(it) }!!) {
             dialog.show()
             return
@@ -121,6 +116,7 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
             .addOnCompleteListener(requireActivity()) { task ->
                 Handler().postDelayed({
                     if (task.isSuccessful) {
+                        DataWorkerHelper.sendDataToWorker(name, email, phone, location, requireContext())
                         dialog.dismiss()
                         NavigationsHelper.navigateToThisDestination(
                             R.id.login_fragment,
@@ -142,7 +138,8 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(requireActivity()
                     , arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-                    , LOCATION_ACCESS_PERMISSION_REQUEST)
+                    , LOCATION_ACCESS_PERMISSION_REQUEST
+                )
             } else {
                 getCurrentLocation()
             }
@@ -164,13 +161,8 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
             ) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity()
                 , arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-                , LOCATION_ACCESS_PERMISSION_REQUEST)
-            GpsUtils(requireContext()).turnGPSOn(object : GpsUtils.onGpsListener {
-                override fun gpsStatus(isGPSEnable: Boolean) {
-                    // turn on GPS
-                    isGPS = isGPSEnable
-                }
-            })
+                , LOCATION_ACCESS_PERMISSION_REQUEST
+            )
         } else {
             LocationServices.getFusedLocationProviderClient(requireActivity())
                 .requestLocationUpdates(locationRequest, object : LocationCallback() {
@@ -179,11 +171,11 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
                         LocationServices.getFusedLocationProviderClient(requireActivity())
                             .removeLocationUpdates(this)
                         if (p0 != null && p0.locations.size > 0) {
-                            var latestLocationIndex: Int = p0.locations.size - 1
-                            var latitude: Double = p0.locations[latestLocationIndex].latitude
-                            var longitude: Double = p0.locations[latestLocationIndex].longitude
+                            val latestLocationIndex: Int = p0.locations.size - 1
+                            val latitude: Double = p0.locations[latestLocationIndex].latitude
+                            val longitude: Double = p0.locations[latestLocationIndex].longitude
                             Log.d(TAG, "Longitude:  $longitude + Latitude:  $latitude")
-                            var location = Location("providerNA")
+                            val location = Location("providerNA")
                             location.latitude = latitude
                             location.longitude = longitude
                             fetchAddressFromLongLatit(location)
@@ -193,6 +185,14 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
         }
     }
 
+    /**
+     * When activity respond to GPS implementation
+     * and set isGPS to false to make sure
+     * the user turn on the GPS
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constants.GPS_REQUEST) {
@@ -200,28 +200,49 @@ class RegisterFragment : Fragment(), GetLocationFromReceiverListener{
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_ACCESS_PERMISSION_REQUEST && grantResults.isNotEmpty()) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getCurrentLocation()
-            } else {
-                Toast.makeText(requireContext(), "Searching for location -> NOT FOUND", LENGTH_LONG).show()
-            }
-        }
-    }
-
+    /**
+     * turn on location background service using
+     * longitude, latitude and pass
+     * them as location
+     *@param location
+     * location is used to pass it to service
+     */
     private fun fetchAddressFromLongLatit(location: Location) {
-        var intent = Intent(requireContext(), FetchLocationAddressService::class.java)
+        val intent = Intent(requireContext(), FetchLocationAddressService::class.java)
         intent.putExtra(Constants.RECEIVER_KEY, receiver)
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, location)
         requireContext().startService(intent)
     }
 
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+        grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_ACCESS_PERMISSION_REQUEST && grantResults.isNotEmpty()) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation()
+            }
+        } else {
+            ActivityCompat.requestPermissions(requireActivity()
+                , arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+                , LOCATION_ACCESS_PERMISSION_REQUEST
+            )
+            Toast.makeText(requireContext(), "Searching for location -> NOT FOUND", LENGTH_LONG).show()
+        }
+    }
+
+    /**
+     * this override method for getting callback
+     * from Receiver (once receiver know location
+     * it passed to fragment directly)
+     * @param string = LOCATION
+     */
     override fun setLocation(string: String) {
         locationTv.text = string
+    }
+
+    companion object {
+        private const val TAG = "ZiadReceiver"
+        private const val LOCATION_ACCESS_PERMISSION_REQUEST = 34
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/profileFragment_drawer"
+            android:icon="@drawable/ic_home_fragment_drawer"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/homeFragment_drawer"
+            android:icon="@drawable/ic_profile_fragment_drawer"
+            android:title="@string/menu_profile" />
+
+    </group>
+
+    <item android:title="@string/menu_communicate">
+        <menu>
+            <item
+                android:id="@+id/shareFragment"
+                android:icon="@drawable/ic_menu_share_drawer"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/sendFragment"
+                android:icon="@drawable/ic_rate_review_drawer"
+                android:title="@string/menu_rate" />
+        </menu>
+    </item>
+
+</menu>

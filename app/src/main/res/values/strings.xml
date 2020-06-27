@@ -26,6 +26,14 @@
     <string name="register_layout_location_hint">We need access to location, to save ONLY</string>
     <string name="ok">Ok</string>
     <string name="permission_rationale">Permissin Access</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_communicate">Communicate</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_rate">Rate</string>
+    <string name="image_description">Image</string>
+    <string name="nav_header_text_hint">Username</string>
+    <string name="label_home_fragment">Home</string>
 
 
 </resources>
